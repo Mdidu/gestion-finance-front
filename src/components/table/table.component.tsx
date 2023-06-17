@@ -1,4 +1,5 @@
 import React from "react";
+import "./table.component.css";
 import { TableProps } from "./table.type";
 import { useTableHeader } from "../../hooks/table/table-header/table-header.hook";
 import { useTableBody } from "../../hooks/table/table-body/table-body.hook";

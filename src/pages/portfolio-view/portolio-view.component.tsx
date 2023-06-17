@@ -5,7 +5,7 @@ import { TableHeader, TableProps } from "../../components/table/table.type";
 interface PortfolioViewPageProps {}
 
 const TableaHeader: TableHeader[] = [
-  { name: "Actifs", hiddenName: "name" },
+  { name: "Actifs", hiddenName: "actifName" },
   { name: "Répartition", hiddenName: "distribution" },
   { name: "Valeur", hiddenName: "value" },
 ];

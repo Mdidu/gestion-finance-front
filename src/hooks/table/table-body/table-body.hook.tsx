@@ -36,8 +36,8 @@ export const useTableBody = (body: DataItem[]) => {
     ? sortedData.map((item: DataItem, index: number) => (
         <tr key={index}>
           <td>{item.name}</td>
-          <td>{item.distribution}</td>
-          <td>{item.value}</td>
+          <td>{item.distribution} %</td>
+          <td>{item.value} €</td>
         </tr>
       ))
     : null;

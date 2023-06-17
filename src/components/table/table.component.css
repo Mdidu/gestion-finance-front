@@ -1,0 +1,19 @@
+.table {
+  background-color: rgb(241, 241, 241);
+  border: 1px solid black;
+  border-radius: 0.4em;
+  padding: 0.5em;
+  display: grid;
+  max-width: 80vw;
+}
+tr {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  justify-items: start;
+}
+th {
+  min-width: 3vw;
+}
+td {
+  margin: 0.5vh 0 0.5vh 0;
+}
