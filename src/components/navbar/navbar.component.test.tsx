@@ -4,7 +4,7 @@ import Navbar from "./navbar.component";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Navbar", () => {
-  test("Vérifie la présente du texte Visualiser portefeuille", async () => {
+  test("Vérifie la présence du texte Visualiser portefeuille", async () => {
     render(
       <BrowserRouter>
         <Navbar />
