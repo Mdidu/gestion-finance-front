@@ -23,4 +23,14 @@ describe("useTableHeader", () => {
     );
     expect(result.result.current.tableHeader).toBeTruthy();
   });
+  test("When click th element, the function handleSort is called", async () => {
+    const resultTableBody = renderHook(() => useTableBody(mockArrayDataItem));
+    const result = renderHook(() =>
+      useTableHeader(mockTableHeader, resultTableBody.result.current.handleSort)
+    );
+    result.result.current.tableHeader?.forEach((element) => {
+      element.props.onClick();
+    });
+    expect(resultTableBody.result.current.tableBody).toBeTruthy();
+  });
 });
