@@ -10,7 +10,7 @@ const TableaHeader: TableHeader[] = [
   { name: "Valeur", hiddenName: "value" },
 ];
 
-const useData = () => {
+export const useData = () => {
   // Le mock sera remplacé par des données récupéré dans la db
   const mockValeurPourAlimenterArray: TableProps = {
     header: TableaHeader,
