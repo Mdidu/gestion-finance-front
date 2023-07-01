@@ -12,7 +12,7 @@ const PortfolioViewPage: FunctionComponent<PortfolioViewPageProps> = () => {
 
   return (
     <div>
-      <div className="horizontal__center-align height_middle">
+      <div className="horizontal__center-align height__middle">
         <LineChart data={assets} />
       </div>
 

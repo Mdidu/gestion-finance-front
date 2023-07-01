@@ -51,7 +51,7 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data }) => {
   };
 
   return (
-    <div className="horizontal__center-align height_middle">
+    <div className="horizontal__center-align height__middle">
       <Line options={options} data={dataChart} />
     </div>
   );
