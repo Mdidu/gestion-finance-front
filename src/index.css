@@ -6,3 +6,10 @@
 a {
   text-decoration: none;
 }
+.horizontal__center-align {
+  display: flex;
+  justify-content: center;
+}
+.height__middle {
+  height: 60vh;
+}

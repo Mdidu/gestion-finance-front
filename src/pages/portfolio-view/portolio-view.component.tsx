@@ -1,40 +1,26 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import Table from "../../components/table/table.component";
-import { TableHeader, TableProps } from "../../components/table/table.type";
+import LineChart from "../../components/charts/line-charts/line-charts.component";
+import { useTableData } from "../../hooks/table/table-data/table-data.hook";
+import { useDataForLineChart } from "../../hooks/charts/data-line-chart/data-line-chart.hook";
 
 interface PortfolioViewPageProps {}
 
-const TableaHeader: TableHeader[] = [
-  { name: "Actifs", hiddenName: "actifName" },
-  { name: "Répartition", hiddenName: "distribution" },
-  { name: "Valeur", hiddenName: "value" },
-];
-
-export const useData = () => {
-  // Le mock sera remplacé par des données récupéré dans la db
-  const mockValeurPourAlimenterArray: TableProps = {
-    header: TableaHeader,
-    body: [
-      { name: "Crypto", distribution: 55, value: 5500 },
-      { name: "Actions", distribution: 45, value: 4500 },
-    ],
-  };
-
-  const [data, setData] = useState<TableProps | null>(
-    mockValeurPourAlimenterArray
-  );
-
-  const updateData = () => {
-    setData(mockValeurPourAlimenterArray);
-  };
-
-  return { data, updateData };
-};
-
 const PortfolioViewPage: FunctionComponent<PortfolioViewPageProps> = () => {
-  const { data } = useData();
+  const { tableData } = useTableData();
+  const { assets } = useDataForLineChart();
 
-  return <div>{data ? <Table {...data} /> : null}</div>;
+  return (
+    <div>
+      <div className="horizontal__center-align height_middle">
+        <LineChart data={assets} />
+      </div>
+
+      <div className="horizontal__center-align">
+        {tableData ? <Table {...tableData} /> : null}
+      </div>
+    </div>
+  );
 };
 
 export default PortfolioViewPage;
