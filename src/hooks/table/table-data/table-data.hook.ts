@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TableHeader, TableProps } from "../../../components/table/table.type";
 
 const TableHeader: TableHeader[] = [
-  { name: "Actifs", hiddenName: "AssetName" },
+  { name: "Actifs", hiddenName: "assetName" },
   { name: "Répartition", hiddenName: "distribution" },
   { name: "Valeur", hiddenName: "value" },
 ];

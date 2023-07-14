@@ -8,7 +8,7 @@ describe("useTableData", () => {
 
     expect(result.current.tableData).toEqual({
       header: [
-        { name: "Actifs", hiddenName: "AssetName" },
+        { name: "Actifs", hiddenName: "assetName" },
         { name: "Répartition", hiddenName: "distribution" },
         { name: "Valeur", hiddenName: "value" },
       ],
@@ -28,7 +28,7 @@ describe("useTableData", () => {
 
     expect(result.current.tableData).toEqual({
       header: [
-        { name: "Actifs", hiddenName: "AssetName" },
+        { name: "Actifs", hiddenName: "assetName" },
         { name: "Répartition", hiddenName: "distribution" },
         { name: "Valeur", hiddenName: "value" },
       ],

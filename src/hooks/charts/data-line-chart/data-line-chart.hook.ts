@@ -4,7 +4,7 @@ import { AssetValueHistory } from "../../../lib/models/charts/chart.model";
 export const useDataForLineChart = () => {
   const mockDataForLineChart: AssetValueHistory[] = [
     {
-      nameAsset: "Crypto",
+      assetName: "Crypto",
       valuePerPeriod: [
         { date: new Date(), value: 1000 },
         { date: new Date(), value: 1300 },
@@ -13,7 +13,7 @@ export const useDataForLineChart = () => {
       ],
     },
     {
-      nameAsset: "Actions",
+      assetName: "Actions",
       valuePerPeriod: [
         { date: new Date(), value: 1000 },
         { date: new Date(), value: 1800 },

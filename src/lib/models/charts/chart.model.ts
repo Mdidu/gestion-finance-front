@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /** Type Définition with ZOD */
 const AssetValueHistoryScheme = z.object({
-  nameAsset: z.string(),
+  assetName: z.string(),
   valuePerPeriod: z.array(
     z.object({
       date: z.date(),
@@ -33,9 +33,23 @@ const LineChartOptionsScheme = z.object({
     }),
   }),
 });
+const DoughnutChartDatasetScheme = z.object({
+  label: z.string(),
+  data: z.array(z.number()),
+  backgroundColor: z.array(z.string()),
+  borderColor: z.array(z.string()),
+  borderWidth: z.number(),
+});
+const DoughnutChartDataScheme = z.object({
+  labels: z.array(z.string()),
+  datasets: z.array(DoughnutChartDatasetScheme),
+});
+
 /**
  * Exportable Type
  */
 export type LineChartData = z.infer<typeof LineChartDataScheme>;
 export type LineChartOptions = z.infer<typeof LineChartOptionsScheme>;
 export type AssetValueHistory = z.infer<typeof AssetValueHistoryScheme>;
+export type DoughnutChartData = z.infer<typeof DoughnutChartDataScheme>;
+export type DoughnutChartDataset = z.infer<typeof DoughnutChartDatasetScheme>;

@@ -6,6 +6,7 @@ import {
   LineChartData,
   LineChartOptions,
 } from "../../../lib/models/charts/chart.model";
+import { chooseColor } from "../../../utils/colors/choose-color";
 
 interface LineChartProps {
   data: AssetValueHistory[];
@@ -42,16 +43,16 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data }) => {
 
   const dataChart: LineChartData = {
     labels,
-    datasets: data.map((Asset) => ({
-      label: Asset.nameAsset,
+    datasets: data.map((Asset, index) => ({
+      label: Asset.assetName,
       data: Asset.valuePerPeriod.map((value) => value.value),
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      borderColor: chooseColor(index),
+      backgroundColor: chooseColor(index),
     })),
   };
 
   return (
-    <div className="horizontal__center-align height__middle">
+    <div className="horizontal__center-align width__middle">
       <Line options={options} data={dataChart} />
     </div>
   );

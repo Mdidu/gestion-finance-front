@@ -8,7 +8,7 @@ describe("useDataForLineChart", () => {
 
     expect(result.current.assets).toEqual([
       {
-        nameAsset: "Crypto",
+        assetName: "Crypto",
         valuePerPeriod: [
           { date: expect.any(Date), value: 1000 },
           { date: expect.any(Date), value: 1300 },
@@ -17,7 +17,7 @@ describe("useDataForLineChart", () => {
         ],
       },
       {
-        nameAsset: "Actions",
+        assetName: "Actions",
         valuePerPeriod: [
           { date: expect.any(Date), value: 1000 },
           { date: expect.any(Date), value: 1800 },
@@ -37,7 +37,7 @@ describe("useDataForLineChart", () => {
 
     expect(result.current.assets).toEqual([
       {
-        nameAsset: "Crypto",
+        assetName: "Crypto",
         valuePerPeriod: [
           { date: expect.any(Date), value: 1000 },
           { date: expect.any(Date), value: 1300 },
@@ -46,7 +46,7 @@ describe("useDataForLineChart", () => {
         ],
       },
       {
-        nameAsset: "Actions",
+        assetName: "Actions",
         valuePerPeriod: [
           { date: expect.any(Date), value: 1000 },
           { date: expect.any(Date), value: 1800 },
