@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/new" element={<PortfolioViewPage />} />
+        <Route path="/portfolio/:id" element={<PortfolioViewPage />} />
       </Routes>
       {/* <footer>footer</footer> */}
     </div>

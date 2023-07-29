@@ -1,32 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Asset } from "../../../lib/models/asset/asset.model";
 import { AssetValueHistory } from "../../../lib/models/charts/chart.model";
+import { ChartsService } from "../../../lib/services/charts/chart.service";
 
-export const useDataForLineChart = () => {
-  const mockDataForLineChart: AssetValueHistory[] = [
-    {
-      assetName: "Crypto",
-      valuePerPeriod: [
-        { date: new Date(), value: 1000 },
-        { date: new Date(), value: 1300 },
-        { date: new Date(), value: 5000 },
-        { date: new Date(), value: 5500 },
-      ],
-    },
-    {
-      assetName: "Actions",
-      valuePerPeriod: [
-        { date: new Date(), value: 1000 },
-        { date: new Date(), value: 1800 },
-        { date: new Date(), value: 3500 },
-        { date: new Date(), value: 4500 },
-      ],
-    },
-  ];
-  const [assets, setAssets] = useState(mockDataForLineChart);
+export const useDataForLineChart = (assetList: Asset[]) => {
+  const [lineChartData, setLineChartData] = useState<AssetValueHistory[]>([]);
 
-  const updateAssets = () => {
-    setAssets(mockDataForLineChart);
+  useEffect(() => {
+    updateLineChartData(ChartsService.generateAssetValueHistoryList(assetList));
+  }, [assetList]);
+
+  const updateLineChartData = (assetValueHistoryList: AssetValueHistory[]) => {
+    setLineChartData(assetValueHistoryList);
   };
 
-  return { assets, updateAssets };
+  return { lineChartData, updateLineChartData };
 };

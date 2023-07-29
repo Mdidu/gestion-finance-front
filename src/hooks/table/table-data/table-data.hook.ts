@@ -1,28 +1,22 @@
-import { useState } from "react";
-import { TableHeader, TableProps } from "../../../components/table/table.type";
+import { useEffect, useState } from "react";
+import { TableProps } from "../../../components/table/table.type";
+import { Asset } from "../../../lib/models/asset/asset.model";
+import { TableConstantes } from "../constantes";
 
-const TableHeader: TableHeader[] = [
-  { name: "Actifs", hiddenName: "assetName" },
-  { name: "Répartition", hiddenName: "distribution" },
-  { name: "Valeur", hiddenName: "value" },
-];
-
-export const useTableData = () => {
-  // Le mock sera remplacé par des données récupéré dans la db
-  const mockValeurPourAlimenterArray: TableProps = {
-    header: TableHeader,
-    body: [
-      { name: "Crypto", distribution: 55, value: 5500 },
-      { name: "Actions", distribution: 45, value: 4500 },
-    ],
+export const useTableData = (assetList: Asset[]) => {
+  const tableContent: TableProps = {
+    header: TableConstantes.TABLE_HEADER,
+    body: assetList,
   };
 
-  const [tableData, setTableData] = useState<TableProps | null>(
-    mockValeurPourAlimenterArray
-  );
+  const [tableData, setTableData] = useState<TableProps | null>(tableContent);
+
+  useEffect(() => {
+    updateTableData();
+  }, [assetList]);
 
   const updateTableData = () => {
-    setTableData(mockValeurPourAlimenterArray);
+    setTableData(tableContent);
   };
 
   return { tableData, updateTableData };

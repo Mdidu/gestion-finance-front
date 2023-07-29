@@ -5,20 +5,23 @@ import { useTableData } from "../../hooks/table/table-data/table-data.hook";
 import { useDataForLineChart } from "../../hooks/charts/data-line-chart/data-line-chart.hook";
 import DoughnutChart from "../../components/charts/doughnut/doughnut-charts.component";
 import { useDataForDoughnutChart } from "../../hooks/charts/data-doughnut-chart/data-doughnut-chart.hook";
+import { useRetrieveAssets } from "../../hooks/retrieve-assets/retrieve-assets.hook";
 
 interface PortfolioViewPageProps {}
 
 const PortfolioViewPage: FunctionComponent<PortfolioViewPageProps> = () => {
-  const { tableData } = useTableData();
-  const { assets } = useDataForLineChart();
-  const { doughnutAssets } = useDataForDoughnutChart();
+  const { assetList } = useRetrieveAssets();
+  const { tableData } = useTableData(assetList);
+  const { lineChartData } = useDataForLineChart(assetList);
+  const { doughnutAssets } = useDataForDoughnutChart(assetList);
+
   return (
     <div>
       <div className="horizontal__center-align">
         <DoughnutChart data={doughnutAssets} />
       </div>
       <div className="horizontal__center-align">
-        <LineChart data={assets} />
+        <LineChart data={lineChartData} />
       </div>
 
       <div className="horizontal__center-align">

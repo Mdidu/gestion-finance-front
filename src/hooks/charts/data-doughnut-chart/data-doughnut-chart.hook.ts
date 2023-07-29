@@ -1,20 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Asset } from "../../../lib/models/asset/asset.model";
 import { DoughnutChartData } from "../../../lib/models/charts/chart.model";
 import { chooseColor } from "../../../utils/colors/choose-color";
 import { ChartsConstantes } from "../constantes";
 
-export const useDataForDoughnutChart = () => {
-  // Récuperer les données de l'API pour remplacer le mock
-  const mockTest = [
-    { label: "Crypto", amount: 5 },
-    { label: "Actions", amount: 5 },
-    { label: "Immobilier", amount: 5 },
-    { label: "Livret", amount: 5 },
-  ];
+export const useDataForDoughnutChart = (assetList: Asset[]) => {
+  const labelList = assetList.map((item) => item.name);
+  const amountList = assetList.map((item) => item.totalAmount);
 
-  const labelList = mockTest.map((item) => item.label);
-  const amountList = mockTest.map((item) => item.amount);
-  const mockDataForDoughnutChart: DoughnutChartData = {
+  const doughnutChartData: DoughnutChartData = {
     labels: labelList,
     datasets: [
       {
@@ -26,12 +20,15 @@ export const useDataForDoughnutChart = () => {
       },
     ],
   };
-  const [doughnutAssets, setDoughnutAssets] = useState(
-    mockDataForDoughnutChart
-  );
+
+  useEffect(() => {
+    updateDoughnutAssets();
+  }, [assetList]);
+
+  const [doughnutAssets, setDoughnutAssets] = useState(doughnutChartData);
 
   const updateDoughnutAssets = () => {
-    setDoughnutAssets(mockDataForDoughnutChart);
+    setDoughnutAssets(doughnutChartData);
   };
 
   return { doughnutAssets, updateDoughnutAssets };
