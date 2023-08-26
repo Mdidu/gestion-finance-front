@@ -7,6 +7,8 @@ const AssetValueHistoryScheme = z.object({
     z.object({
       date: z.date(),
       value: z.number(),
+      totalAmount: z.number(),
+      topBuy: z.string(),
     })
   ),
 });

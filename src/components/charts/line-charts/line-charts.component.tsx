@@ -45,7 +45,7 @@ const LineChart: FunctionComponent<LineChartProps> = ({ data }) => {
     labels,
     datasets: data.map((Asset, index) => ({
       label: Asset.assetName,
-      data: Asset.valuePerPeriod.map((value) => value.value),
+      data: Asset.valuePerPeriod.map((value) => value.totalAmount),
       borderColor: chooseColor(index),
       backgroundColor: chooseColor(index),
     })),
