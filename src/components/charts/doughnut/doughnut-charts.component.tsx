@@ -10,7 +10,7 @@ const DoughnutChart: FunctionComponent<DoughnutChartProps> = (
   props: DoughnutChartProps
 ) => {
   return (
-    <div className="horizontal__center-align width__middle">
+    <div className="horizontal__center-align">
       <Doughnut data={props.data} />
     </div>
   );

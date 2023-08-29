@@ -16,5 +16,11 @@ export const AssetScheme = z.object({
   amount: z.number(),
 });
 
+export const AssetTypeScheme = z.object({
+  id: z.number(),
+  name: z.string(),
+});
+
 /** Exportable type */
 export type Asset = z.infer<typeof AssetScheme>;
+export type AssetType = z.infer<typeof AssetTypeScheme>;

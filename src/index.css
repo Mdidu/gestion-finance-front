@@ -14,5 +14,22 @@ a {
   height: 60vh;
 }
 .width__middle {
-  width: 60vh;
+  width: 55vw;
+}
+
+.button {
+  background-color: #f46b45;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ec7f61;
+}
+td a {
+  color: black;
 }
