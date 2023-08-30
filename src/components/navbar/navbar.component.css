@@ -10,7 +10,6 @@ body {
 }
 
 * {
-  font-family: "Raleway";
   box-sizing: border-box;
 }
 a {
@@ -76,7 +75,11 @@ a {
   content: "";
   margin-top: 8px;
 }
-
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
 #menu-toggle:checked + .menu-button-container .menu-button::before {
   margin-top: 0px;
   transform: rotate(405deg);

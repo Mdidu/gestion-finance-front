@@ -25,7 +25,7 @@ const Navbar = () => {
       </label>
       <ul className={`menu ${isOpen ? "active" : ""}`}>
         <li>
-          <Link to={"/new"} onClick={toggleNavbar}>
+          <Link to={"/portfolio/1"} onClick={toggleNavbar}>
             Visualiser portefeuille
           </Link>
         </li>

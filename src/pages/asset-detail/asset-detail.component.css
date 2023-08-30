@@ -1,0 +1,40 @@
+.asset-detail__title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+.asset-detail__table {
+  width: 95%;
+  border-collapse: collapse;
+}
+.asset-detail__thead tr {
+  font-weight: bold;
+}
+.asset-detail__thead tr,
+.asset-detail__tbody tr {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+  justify-items: start;
+  width: 100%;
+  color: #333;
+  padding: 10px;
+}
+.asset-detail__tbody tr {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+}
+
+.buy {
+  background-color: rgb(33, 218, 33);
+}
+.sell {
+  background-color: red;
+}

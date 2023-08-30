@@ -1,17 +1,22 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/home";
+import HomePage from "./pages/home/home.component";
 import Header from "./components/header/header.component";
+import PortfolioViewPage from "./pages/portfolio-view/portolio-view.component";
+import AssetDetailPage from "./pages/asset-detail/asset-detail.component";
 
 function App() {
   return (
     <div>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<div>New</div>} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/portfolio/:id" element={<PortfolioViewPage />} />
+        <Route
+          path="/asset/:assetName/:portfolioId"
+          element={<AssetDetailPage />}
+        />
       </Routes>
-      {/* <footer>footer</footer> */}
     </div>
   );
 }
