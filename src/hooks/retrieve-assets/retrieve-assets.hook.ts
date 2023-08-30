@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "use-http";
-import { Asset } from "../../lib/models/asset/asset.model";
+import { Asset, AssetListResponse } from "../../lib/models/asset/asset.model";
 
 export const useRetrieveAssets = () => {
   const [assetList, setAssetList] = useState<Asset[]>([]);
   let { id } = useParams();
-  const { data, get } = useFetch<any>(
+  const { data, get } = useFetch<AssetListResponse>(
     `${import.meta.env.VITE_LOCALHOST}asset/${id}`,
     {
       method: "GET",

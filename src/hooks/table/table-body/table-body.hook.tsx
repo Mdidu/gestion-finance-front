@@ -33,10 +33,10 @@ export const useTableBody = (body: Asset[]) => {
     ? sortedData.map((item: Asset, index: number) => (
         <tr key={index}>
           <td>
-            <Link to={`/asset/${item.id}/${id}`}>{item.name} →</Link>
+            <Link to={`/asset/${item.name}/${id}`}>{item.name} →</Link>
           </td>
 
-          <td>{item.distribution} %</td>
+          <td>{item.distribution.toFixed(2)} %</td>
           <td>{item.totalAmount} €</td>
         </tr>
       ))

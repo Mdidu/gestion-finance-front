@@ -1,41 +1,86 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./modal-asset.component.css";
 import { Asset, AssetType } from "../../lib/models/asset/asset.model";
 import ReactDOM from "react-dom";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useAllTypeAssets } from "../../hooks/all-type-asset/all-type-asset.hook";
+import { z } from "zod";
+import { Constante } from "../../lib/shared/constante";
 
 interface AssetModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddAsset: (asset: Asset) => void;
+  onAddAsset?: (asset: AssetModalForm) => void;
+  onUpdateAsset?: (asset: AssetModalForm) => void;
+  asset?: Partial<Asset>;
 }
+const AssetModalFormScheme = z.object({
+  id: z.number().optional(),
+  name: z.string().nonempty({ message: Constante.FORM_ERROR_MESSAGE.REQUIRED }),
+  date: z.string().nonempty({ message: Constante.FORM_ERROR_MESSAGE.REQUIRED }),
+  quantity: z
+    .number()
+    .min(0, { message: Constante.FORM_ERROR_MESSAGE.REQUIRED }),
+  amount: z.number().min(0, { message: Constante.FORM_ERROR_MESSAGE.REQUIRED }),
+  typeOperation: z
+    .string()
+    .nonempty({ message: Constante.FORM_ERROR_MESSAGE.REQUIRED }),
+  assetType: z
+    .number()
+    .min(0, { message: Constante.FORM_ERROR_MESSAGE.REQUIRED }),
+});
+export type AssetModalForm = z.infer<typeof AssetModalFormScheme>;
 
 const ModalAsset: React.FC<AssetModalProps> = ({
   isOpen,
   onClose,
   onAddAsset,
+  onUpdateAsset,
+  asset,
 }: AssetModalProps) => {
+  const today = new Date().toISOString().slice(0, 10);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<AssetModalForm>();
   const { assetTypeList } = useAllTypeAssets();
-  const today = new Date().toISOString().slice(0, 10);
 
-  const onSubmit = (data: any) => {
-    /** @type {*} */
-    const newAsset: any = {
-      // id: -1,
+  useEffect(() => {
+    const operationType =
+      asset?.valuePerPeriod?.[0]?.topBuy === Constante.CODE_OPERATION_TYPE.BUY
+        ? Constante.NOM_OPERATION_TYPE.BUY
+        : Constante.NOM_OPERATION_TYPE.SELL;
+    reset({
+      id: asset?.valuePerPeriod?.[0].id ? asset?.valuePerPeriod?.[0].id : -1,
+      name: asset?.name ? asset.name : "",
+      date: asset?.valuePerPeriod?.[0]?.date
+        ? asset.valuePerPeriod[0].date
+        : today,
+      quantity: asset?.valuePerPeriod?.[0]?.quantity
+        ? asset.valuePerPeriod[0].quantity
+        : 0,
+      amount: asset?.valuePerPeriod?.[0]?.value
+        ? asset.valuePerPeriod[0].value
+        : 0,
+      typeOperation: asset?.valuePerPeriod?.[0]?.topBuy ? operationType : "",
+      assetType: asset?.assetType ? asset.assetType : 0,
+    });
+  }, [asset]);
+
+  const onSubmit: SubmitHandler<AssetModalForm> = (data: AssetModalForm) => {
+    const newAsset: AssetModalForm = {
+      id: data.id,
       name: data.name,
       date: data.date,
       amount: +data.amount,
       quantity: +data.quantity,
-      assetType: data.type,
+      assetType: data.assetType,
       typeOperation: data.typeOperation,
     };
-    onAddAsset(newAsset);
+    if (onAddAsset) onAddAsset(newAsset);
+    if (onUpdateAsset) onUpdateAsset(newAsset);
     onClose();
   };
 
@@ -50,13 +95,24 @@ const ModalAsset: React.FC<AssetModalProps> = ({
             <h2>Ajouter un actif</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="form__group">
+                <input type="hidden" id="id" {...register("id")} />
+                {errors.name && (
+                  <span className="error-message">
+                    {errors.name.message?.toString()}
+                  </span>
+                )}
+              </div>
+
+              <div className="form__group">
                 <label htmlFor="name" className="form_group__label">
                   Nom
                 </label>
                 <input
                   type="text"
                   id="name"
-                  {...register("name", { required: "Ce champ est requis" })}
+                  {...register("name", {
+                    required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
+                  })}
                 />
                 {errors.name && (
                   <span className="error-message">
@@ -72,7 +128,9 @@ const ModalAsset: React.FC<AssetModalProps> = ({
                   type="date"
                   id="date"
                   defaultValue={today}
-                  {...register("date", { required: "Ce champ est requis" })}
+                  {...register("date", {
+                    required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
+                  })}
                 />
                 {errors.date && (
                   <span className="error-message">
@@ -88,7 +146,9 @@ const ModalAsset: React.FC<AssetModalProps> = ({
                   type="number"
                   id="quantity"
                   step="0.01"
-                  {...register("quantity", { required: "Ce champ est requis" })}
+                  {...register("quantity", {
+                    required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
+                  })}
                 />
                 {errors.quantity && (
                   <span className="error-message">
@@ -104,7 +164,9 @@ const ModalAsset: React.FC<AssetModalProps> = ({
                   type="number"
                   id="amount"
                   step="0.01"
-                  {...register("amount", { required: "Ce champ est requis" })}
+                  {...register("amount", {
+                    required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
+                  })}
                 />
                 {errors.amount && (
                   <span className="error-message">
@@ -120,9 +182,9 @@ const ModalAsset: React.FC<AssetModalProps> = ({
                       <span className="input__radio__label">Acheté</span>
                       <input
                         type="radio"
-                        value="buy"
+                        value={Constante.NOM_OPERATION_TYPE.BUY}
                         {...register("typeOperation", {
-                          required: "Ce champ est requis",
+                          required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
                         })}
                       />
                     </span>
@@ -132,25 +194,26 @@ const ModalAsset: React.FC<AssetModalProps> = ({
                       <span className="input__radio__label">Vendu</span>
                       <input
                         type="radio"
-                        value="sell"
+                        value={Constante.NOM_OPERATION_TYPE.SELL}
                         {...register("typeOperation", {
-                          required: "Ce champ est requis",
+                          required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
                         })}
                       />
                     </span>
                   </label>
                 </div>
-                {errors.type && (
+                {errors.typeOperation && (
                   <span className="error-message">
-                    {errors.type.message?.toString()}
+                    {errors.typeOperation.message?.toString()}
                   </span>
                 )}
               </div>
-              {/* TODO Récupéré les datas depuis le backend */}
               <div className="form__group">
                 <label className="form_group__label">Type d'asset</label>
                 <select
-                  {...register("type", { required: "Ce champ est requis" })}
+                  {...register("assetType", {
+                    required: Constante.FORM_ERROR_MESSAGE.REQUIRED,
+                  })}
                 >
                   <option value="">Sélectionnez un type d'asset</option>
                   {assetTypeList?.map((type: AssetType) => (
@@ -159,9 +222,9 @@ const ModalAsset: React.FC<AssetModalProps> = ({
                     </option>
                   ))}
                 </select>
-                {errors.type && (
+                {errors.assetType && (
                   <span className="error-message">
-                    {errors.type.message?.toString()}
+                    {errors.assetType.message?.toString()}
                   </span>
                 )}
               </div>

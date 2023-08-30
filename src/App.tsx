@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/portfolio/:id" element={<PortfolioViewPage />} />
         <Route
-          path="/asset/:assetId/:portfolioId"
+          path="/asset/:assetName/:portfolioId"
           element={<AssetDetailPage />}
         />
       </Routes>
